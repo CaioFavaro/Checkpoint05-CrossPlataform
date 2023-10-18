@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserDrawer extends StatefulWidget {
-  const UserDrawer({super.key});
+  const UserDrawer({Key? key}) : super(key: key);
 
   @override
   State<UserDrawer> createState() => _UserDrawerState();
@@ -39,12 +39,18 @@ class _UserDrawerState extends State<UserDrawer> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.black,
+            currentAccountPicture: InkWell(
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed('/user'); // Defina a rota da página do usuário
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
