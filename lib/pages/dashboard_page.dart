@@ -12,6 +12,18 @@ class DashBoardPage extends StatefulWidget {
 class _DashBoardPageState extends State<DashBoardPage> {
   var height, width;
 
+  // Lista de páginas de destino correspondentes aos nomes dos itens
+  final List<String> destinations = [
+    '/item1', // Substitua com os nomes de destino apropriados
+    '/item2',
+    '/item3',
+    '/item4',
+    '/item5',
+    '/item6',
+    '/item7',
+    '/cartao'
+  ];
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -81,7 +93,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   final imagePath = DashBoardItems.itemData[title];
 
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      // Navegar para a página de destino correspondente
+                      Navigator.pushNamed(context, destinations[index]);
+                    },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                         vertical: 2,
