@@ -22,7 +22,7 @@ class CartaoItem extends StatelessWidget {
       title: Text(cartao.nome),
       subtitle: Text(DateFormat('MM/dd/yyyy').format(cartao.data)),
       trailing: Text(
-        NumberFormat.simpleCurrency(locale: 'pt_BR').format(cartao.numero),
+        NumberFormat.simpleCurrency().format(cartao.numero),
       ),
       onTap: onTap,
     );

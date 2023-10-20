@@ -2,7 +2,6 @@ import 'package:expense_tracker/models/cartao.dart';
 import 'package:expense_tracker/repository/cartoes_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -21,8 +20,9 @@ class _CartaoCadastroPageState extends State<CartaoCadastroPage> {
   final cartoesRepo = CartoesReepository();
 
   final nomeController = TextEditingController();
-  final numeroController = MoneyMaskedTextController();
-  final codigoController = MoneyMaskedTextController();
+  final numeroController = TextEditingController(text: '');
+
+  final codigoController = TextEditingController(text: '');
   final dataController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -37,10 +37,10 @@ class _CartaoCadastroPageState extends State<CartaoCadastroPage> {
       nomeController.text = cartao.nome;
 
       numeroController.text =
-          NumberFormat.simpleCurrency().format(cartao.numero);
+          NumberFormat.decimalPattern().format(cartao.numero);
 
       codigoController.text =
-          NumberFormat.simpleCurrency(locale: 'pt_BR').format(cartao.codigo);
+          NumberFormat.decimalPattern().format(cartao.codigo);
 
       dataController.text = DateFormat('MM/dd/yyyy').format(cartao.data);
     }
@@ -113,11 +113,12 @@ class _CartaoCadastroPageState extends State<CartaoCadastroPage> {
         if (value == null || value.isEmpty) {
           return 'Informe um Numero';
         }
-        final numero = int.tryParse(value);
-        if (numero == null || numero <= 0) {
+        final valor =
+            NumberFormat.simpleCurrency().parse(numeroController.text);
+        if (valor <= 0) {
           return 'Informe um numero maior que zero';
         }
-        if (value.length != 17) {
+        if (value.length != 16) {
           return 'Informe um numero de tamanho valido';
         }
         return null;
@@ -139,8 +140,9 @@ class _CartaoCadastroPageState extends State<CartaoCadastroPage> {
         if (value == null || value.isEmpty) {
           return 'Informe um Codigo';
         }
-        final codigo = int.tryParse(value);
-        if (codigo == null || codigo <= 0) {
+        final codigo = NumberFormat.simpleCurrency(locale: 'pt_BR')
+            .parse(numeroController.text);
+        if (codigo <= 0) {
           return 'Informe um valor maior que zero';
         }
         if (value.length != 3) {
@@ -158,12 +160,13 @@ class _CartaoCadastroPageState extends State<CartaoCadastroPage> {
         onPressed: () async {
           final isValid = _formKey.currentState!.validate();
           if (isValid) {
-            // Data
             final data = DateFormat('MM/yyyy').parse(dataController.text);
-            // Descricao
-            final numero = NumberFormat.currency().parse(numeroController.text);
-            // Valor
-            final codigo = NumberFormat.currency().parse(codigoController.text);
+
+            final numero =
+                NumberFormat.decimalPattern().parse(numeroController.text);
+
+            final codigo =
+                NumberFormat.decimalPattern().parse(codigoController.text);
 
             final nome = nomeController.text;
 
