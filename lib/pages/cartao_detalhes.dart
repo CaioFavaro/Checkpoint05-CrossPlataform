@@ -19,21 +19,23 @@ class _CartaoDetalhesPageState extends State<CartaoDetalhesPage> {
         child: Column(
           children: [
             ListTile(
-              title: const Text('Numero'),
+              title: const Text('Número'),
               subtitle: Text(
-                  NumberFormat.currency(locale: 'pt_BR').format(cartao.numero)),
+                NumberFormat('###,###', 'pt_BR').format(cartao.numero),
+              ),
             ),
             ListTile(
-              title: const Text('Codigo'),
+              title: const Text('Código'),
               subtitle: Text(
-                  NumberFormat.currency(locale: 'pt_BR').format(cartao.codigo)),
+                NumberFormat.decimalPattern().format(cartao.codigo),
+              ),
             ),
             ListTile(
               title: const Text('Nome'),
               subtitle: Text(cartao.nome),
             ),
             ListTile(
-              title: const Text('Data do Lançamento'),
+              title: const Text('Data de validade'),
               subtitle: Text(DateFormat('MM/dd/yyyy').format(cartao.data)),
             ),
           ],

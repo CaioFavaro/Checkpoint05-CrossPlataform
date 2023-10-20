@@ -5,17 +5,8 @@ class CartoesReepository {
   Future<List<Cartao>> listarCartoes() async {
     final supabase = Supabase.instance.client;
 
-    var query = supabase.from('cartoes').select<List<Map<String, dynamic>>>('''
-            *,
-            categorias (
-              *
-            ),
-            contas (
-              *
-            ),
-            *,
-            transacoes (
-            ''');
+    var query =
+        supabase.from('cartoes').select<List<Map<String, dynamic>>>('*');
 
     var data = await query;
 
@@ -31,7 +22,7 @@ class CartoesReepository {
 
     await supabase.from('cartoes').insert({
       'nome': cartao.nome,
-      'valor': cartao.numero,
+      'numero': cartao.numero,
       'codigo': cartao.codigo,
       'data_validade': cartao.data.toIso8601String(),
     });
@@ -42,7 +33,7 @@ class CartoesReepository {
 
     await supabase.from('cartoes').update({
       'nome': cartao.nome,
-      'valor': cartao.numero,
+      'numero': cartao.numero,
       'codigo': cartao.codigo,
       'data_validade': cartao.data.toIso8601String(),
     }).match({'id': cartao.id});

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/pages/cartao_cadastro.dart';
+import 'package:expense_tracker/pages/cartao_detalhes.dart';
 import 'package:expense_tracker/pages/cartao_page.dart';
 import 'package:expense_tracker/pages/conta_cadastro_page.dart';
 import 'package:expense_tracker/pages/home_page.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         "/user": (context) => const UserPage(),
         "/cartao": (context) => const CartaoPage(),
         "/cartao-cadastro": (context) => CartaoCadastroPage(),
+        "/cartao-detalhes": (context) => CartaoDetalhesPage(),
       },
       initialRoute: "/splash",
     );
